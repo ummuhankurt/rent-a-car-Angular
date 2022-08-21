@@ -1,3 +1,30 @@
-<app-navi></app-navi>
-<app-car></app-car>
-<router-outlet></router-outlet>
+<div class="container">
+  <app-navi></app-navi>
+  <div class="row" style="margin-top: 5px;">
+    <div class="col-md-4">
+      <h4 style="color: pink ;">Markalar</h4>
+      <app-brand></app-brand>
+    </div>
+    <div class="col-md-4">
+      <h4 style="color: pink ;">Renkler</h4>
+      <app-color></app-color>
+    </div>
+    <div class="col-md-4">
+      <h4 style="color: pink ;">Müşteriler</h4>
+      <app-customer></app-customer>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4 style="color: pink ;">Arabalar</h4>
+      <app-cardetail></app-cardetail>
+    </div>
+    <div class="col-md-6">
+      <h4 style="color: pink;">Kiralamalar</h4>
+  <app-rentaldetail></app-rentaldetail>
+    </div>
+  </div>
+
+  
+  <router-outlet></router-outlet>
+</div>
