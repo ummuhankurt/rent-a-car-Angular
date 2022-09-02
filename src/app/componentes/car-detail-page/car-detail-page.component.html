@@ -1,0 +1,47 @@
+<!-- <table class="table">
+    <thead>
+      <th>Marka</th>
+      <th>Model</th>
+      <th>Fiyat</th>
+      <th>Resim</th>
+    </thead>
+    <tr *ngFor="let car of carDetails">
+      <td>{{car.name}}</td>
+      <td>{{car.brand}}</td>
+      <td>{{car.dailyPrice}}</td>
+      <img src="https://localhost:44316/api/carimages/getcarimages?carId=2/wwwroot/uploads/images/" alt="">
+    </tr>
+      -->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button *ngFor="let image of carImages; let i = index" type="button" data-bs-target="#carouselExampleIndicators"
+      attr.data-bs-slide-to="{{ i }}" [class]="getButtonClass(image)" aria-current="true" aria-label="Slide 0"></button>
+  </div>
+  <div class="carousel-inner">
+    <div *ngFor="let image of images" class="carousel-item active">
+      <img [src]="image" class="d-block w-100" alt="Image" />
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<div *ngFor="let car of carDetails">
+  <div class="card-header">
+    <h5><b>{{car.brand}} | {{car.name}}</b></h5>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <!-- <p class="card-text">{{carDetail.description}}</p> -->
+    <button type="button" class="btn btn-outline-danger btn-lg">LET'S RENT!</button>
+  </div>
+  <div class="card-footer text-muted">
+    <h5>Günlük Fiyatı | {{car.dailyPrice | currency:"₺"}}</h5>
+  </div>
+</div>
+
