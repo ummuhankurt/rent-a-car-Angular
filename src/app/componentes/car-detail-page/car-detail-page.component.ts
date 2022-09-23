@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CarDetail } from 'src/app/models/carDetailDto/cardetail';
 import { CarImage } from 'src/app/models/carImage/carImage';
+import { RentalDetail } from 'src/app/models/rentalDetailDto/rentalDetail';
 import { CarDetailService } from 'src/app/services/cardetail/cardetailservice';
 import { CarImageService } from 'src/app/services/carImage/car-image.service';
+import { CartService } from 'src/app/services/cart/cart.service';
+import { RentaldetailService } from 'src/app/services/rentaldetail/rentaldetail.service';
 
 
 @Component({
@@ -18,8 +22,11 @@ export class CarDetailPageComponent implements OnInit {
   images: string[] = [];
   currentImage: CarImage;
   imageUrl = "https://localhost:44316/uploads/images/";
+  rentalDetail : RentalDetail;
 
-  constructor(private carDetailService:CarDetailService, private carImageService:CarImageService, private activatedRoute:ActivatedRoute) { }
+  constructor(private carDetailService:CarDetailService, private carImageService:CarImageService, 
+    private activatedRoute:ActivatedRoute, private toastrService : ToastrService,private cartService : CartService,
+    private rentalDetailService : RentaldetailService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -74,6 +81,11 @@ export class CarDetailPageComponent implements OnInit {
       let path = this.imageUrl + carImage.imagePaths;
       return path;
     }
+  }
+
+  addToCart(car : CarDetail){
+    this.cartService.addToCart(car);
+    this.toastrService.success("Ürün sepete eklendi  : " + car.name);
   }
 
 }

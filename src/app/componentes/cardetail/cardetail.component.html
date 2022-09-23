@@ -5,21 +5,69 @@
     <li [class]="getCurrentDetails(car)" *ngFor="let car of details">{{car.dailyPrice}}</li>
 </ul> -->
 
-
- <table class="table">
+ <div class="row">
+   <div class="col-md-4">
+     <div class="mb-3">
+       <label for="filterBrandText" class="form-label"></label>
+       <input type="text" [(ngModel)]="filterBrandText" class="form-control" id="filterBrandText"
+         placeholder="Marka Ara">
+     </div>
+     <div *ngIf="filterBrandText" class="alert alert-success">
+       {{filterBrandText}} aradınız.
+     </div>
+   </div>
+   <div class="col-md-4">
+     <div class="mb-3">
+       <label for="filterModelText" class="form-label"></label>
+       <input type="text" [(ngModel)]="filterModelText" class="form-control" id="filterModelText"
+         placeholder="Model Ara">
+     </div>
+     <div *ngIf="filterModelText" class="alert alert-success">
+       {{filterModelText}} aradınız.
+     </div>
+   </div>
+   <div class="col-md-4">
+     <div class="mb-3">
+       <label for="filterColorText" class="form-label"></label>
+       <input type="text" [(ngModel)]="filterColorText" class="form-control" id="filterColorText"
+         placeholder="Renk Ara">
+     </div>
+     <div *ngIf="filterColorText" class="alert alert-success">
+       {{filterColorText}} aradınız.
+     </div>
+   </div>
+   <h5>Marka</h5>
+   <select  [(ngModel)]="selectedBrand" class="form-select">
+    <option  [ngValue]="car" *ngFor="let car of details" >{{car.brand}}</option>
+  </select>
+  <h5>Renk</h5>
+  <select [(ngModel)]="selectedColor" class="form-select">
+   <option [ngValue]="car"  *ngFor="let car of details" >{{car.color}}</option>
+ </select>
+ <h5></h5>
+ <input class="btn btn-primary" type="button" (click)="getByBrandAndColor()" value="Filtrele">
+<div>
+</div>
+ <table class="table">  
    <thead>
      <th>Marka</th>
      <th>Model</th>
      <th>Renk</th>
      <th>Fiyat</th>
+     <th></th>
+     <th></th>
    </thead>
-   <tr *ngFor="let car of details">
-     <td>{{car.brand}}</td>
-     <td>{{car.name}}</td>
-     <td>{{car.color}}</td>
-     <td>{{car.dailyPrice}}</td>
-     <td><button type="button" [class]="getButtonClass(car)"  (click)="setCurrentCar(car)"
-      [routerLink]="['car-detail-page/',car.id]">İncele</button></td>
-   </tr>
-   
-   
+   <tbody>
+     <tr
+       *ngFor="let car of details | filterPipe:filterBrandText | modelFilterPipe:filterModelText | 
+        colorFilterPipe: filterColorText"
+        >
+       <td>{{car.brand}}</td>
+       <td>{{car.name | uppercase}}</td>
+       <td>{{car.color}}</td>
+       <td>{{car.dailyPrice | vatAdded:10 | currency}} </td>
+       <td><button type="button" [class]="getButtonClass(car)" (click)="setCurrentCar(car)"
+           [routerLink]="['car-detail-page/',car.id]">İncele</button></td>
+       <td><button (click)="addToCart(car)" type="button" class="btn btn-success">Sepete Ekle</button></td>
+     </tr>
+   </tbody>

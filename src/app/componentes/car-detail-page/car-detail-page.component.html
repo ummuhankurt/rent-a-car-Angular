@@ -38,10 +38,13 @@
   <div class="card-body">
     <h5 class="card-title"></h5>
     <!-- <p class="card-text">{{carDetail.description}}</p> -->
-    <button type="button" class="btn btn-outline-danger btn-lg">LET'S RENT!</button>
+    <td><button (click)="addToCart(car)" type="button" class="btn btn-success">Sepete Ekle</button></td>
+    <h5></h5>
   </div>
   <div class="card-footer text-muted">
     <h5>Günlük Fiyatı | {{car.dailyPrice | currency:"₺"}}</h5>
+    <td><button type="button" class="btn btn-warning"
+      [routerLink]="['/rentaldetail',car.id]">Kirala</button></td>
   </div>
-</div>
+</div>  
 

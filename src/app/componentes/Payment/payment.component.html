@@ -1,0 +1,20 @@
+<h1>Ödemei Tamamla</h1>
+<form [formGroup] = "paymentForm" (ngSubmit)="payment()">
+    <div class="mb-3">
+      <label for="firstName" class="form-label">Kartın Üzerindeki İsim</label>
+      <input  type="text" formControlName="firstName"class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Kartın Üzerindeki Soyisim</label>
+      <input  type="text" formControlName="lastName" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="cartNumber" class="form-label">Kart Numarası</label>
+        <input type="number" formControlName="cartNumber"  class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="cvv" class="form-label">Kartın Arkasında Bulunan CVV : </label>
+        <input  type="number" formControlName="cvv" class="form-control" >
+    </div>
+    <button type="submit" class="btn btn-success">Ödemeyi Tamamla</button>
+  </form>

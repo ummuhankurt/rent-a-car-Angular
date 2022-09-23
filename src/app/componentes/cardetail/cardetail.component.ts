@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { iif } from 'rxjs';
 import { Brand } from 'src/app/models/brand/brand';
+import { ColorAndBrandDto } from 'src/app/models/carDetailbyColorAndBrand/ColorAndBrandDto';
 import { CarDetail } from 'src/app/models/carDetailDto/cardetail';
 import { Color } from 'src/app/models/color/color';
+import { ColorFilterPipePipe } from 'src/app/pipes/color-filter-pipe.pipe';
+import { ModelFilterPipePipe } from 'src/app/pipes/model-filter-pipe.pipe';
+import { BrandAndColorServiceService } from 'src/app/services/brandAndColor/brand-and-color-service.service';
 import { CarDetailService } from 'src/app/services/cardetail/cardetailservice';
+import { CartService } from 'src/app/services/cart/cart.service';
 
 @Component({
   selector: 'app-cardetail',
@@ -17,8 +23,18 @@ export class CardetailComponent implements OnInit {
   images: string[];
   currentBrand : Brand;
   currentColor : Color;
+  car : CarDetail;
   imageUrl = "https://localhost:44316";
-  constructor(private cardetailservice : CarDetailService , private activatedRoute : ActivatedRoute) { }
+  filterBrandText ="";
+  filterModelText="";
+  filterColorText ="";
+  selectedBrand : CarDetail;
+  selectedColor : CarDetail;
+  emptySelectedColor : CarDetail = {id : 0, brand : "" ,carId : 0, color : "", dailyPrice : 0, name : ""};
+  emptySelectedBrand: CarDetail = {id : 0, brand : "" ,carId : 0, color : "", dailyPrice : 0, name : ""};
+
+  constructor(private cardetailservice : CarDetailService , private activatedRoute : ActivatedRoute ,
+     private toastrService : ToastrService , private cartService : CartService, private brandAndColorService : BrandAndColorServiceService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
@@ -33,11 +49,10 @@ export class CardetailComponent implements OnInit {
       }
     })
   }
-
-
   getDetails(){
     this.cardetailservice.getCarDetails().subscribe(response=>{
       this.details = response.data;
+      this.selectedColor = this.emptySelectedColor;
     })
   }
 
@@ -47,6 +62,21 @@ export class CardetailComponent implements OnInit {
     })
   }
   
+  getByBrandAndColor(){
+    this.brandAndColorService.getDetalisByBrandAndColor(this.selectedColor.color,this.selectedBrand.brand).subscribe(response=>{
+      this.details = response.data;
+    })
+    this.selectedColor = this.emptySelectedColor;
+    this.selectedBrand = this.emptySelectedBrand;
+  }
+
+  cleanColor(color : CarDetail){
+    this.selectedColor = this.emptySelectedColor;
+  }
+
+  cleanBrand(brand : CarDetail){
+    this.selectedBrand = this.emptySelectedBrand;
+  }
   getDetailsByColor(id : number){
     this.cardetailservice.getCarDetailsByColor(id).subscribe(respose=>{
       this.details = respose.data;
@@ -81,4 +111,10 @@ getButtonClass(car : CarDetail){
     return "btn btn-light";
   }
 }
+addToCart(car : CarDetail){
+  this.cartService.addToCart(car);
+  this.toastrService.success("Ürün sepete eklendi : " + car.brand)
+}
+
+
 }
