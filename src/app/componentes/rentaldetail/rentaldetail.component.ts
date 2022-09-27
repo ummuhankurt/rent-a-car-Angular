@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-//import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { from } from 'rxjs';
 import { RentalDetail } from 'src/app/models/rentalDetailDto/rentalDetail';
 import { RentaldetailService } from 'src/app/services/rentaldetail/rentaldetail.service';
-import {FormGroup,FormControl} from "@angular/forms";
+import {FormGroup,FormControl, FormBuilder, Validators} from "@angular/forms";
 import { ToastrService } from 'ngx-toastr';
 
 
@@ -14,27 +13,43 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./rentaldetail.component.css']
 })
 export class RentaldetailComponent implements OnInit {
-  rentForm = new FormGroup({
-    carId : new FormControl(0),
-    firstName : new FormControl(""),
-    lastName : new FormControl(""),
-    email : new FormControl(""),
-    rentDate : new FormControl(""),
-    returnDate : new FormControl("")
-  })
-  constructor(private rentalDetailService : RentaldetailService, private activatedRoute:ActivatedRoute,private toastrService : ToastrService) { }
+  rentForm  : FormGroup;
+  constructor(private rentalDetailService : RentaldetailService, private activatedRoute:ActivatedRoute,
+    private toastrService : ToastrService, private formBuilder : FormBuilder, private router: Router) { }
   carId : number;
   ngOnInit(): void {
+    this.createAddRentForm();
     this.activatedRoute.params.subscribe(params =>{
       this.rentForm.patchValue({
         carId : + params["carId"] 
       })
     })
+    
+  }
+  createAddRentForm(){
+    this.rentForm = this.formBuilder.group({
+      firstName :  ["",Validators.required],
+      lastName : ["",Validators.required],
+      email : ["",Validators.required],
+      rentDate : ["",Validators.required],
+      returnDate : ["", Validators.required],
+      carId : []
+    })
   }
   addRent(){
-    this.rentalDetailService.getRental(this.rentForm.value).subscribe({
-      next: (value) => {this.toastrService.success("Araba Kiralandı")},
-      error: (err) => {this.toastrService.error("Araba Henüz Teslim Edilmedi")}
-    });
+    //console.log(rentModel); 
+    if(this.rentForm.valid){
+      let rentModel = Object.assign({},this.rentForm.value)
+      console.log(rentModel)
+      this.rentalDetailService.getRental(rentModel).subscribe({
+        next: (value) => {this.toastrService.success("Ödeme Sayfasına Yönlendiriliyorsunuz")
+        this.router.navigate(["rentaldetail/:carId/payment"])
+      },
+        error: (err) => {this.toastrService.error("Araba Henüz Teslim Edilmedi")}
+      });
+    }
+    else{
+      this.toastrService.error("Formunuz eksik")
+    }
   }
 }

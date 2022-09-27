@@ -14,30 +14,30 @@
     </tr>
 </table> -->
 <h1>Kirala</h1>
-<form [formGroup] = "rentForm" (ngSubmit)="addRent()">
+<form [formGroup] = "rentForm"  (ngSubmit)="addRent()">
     <div class="mb-3">
-      <label for="firstName" class="form-label">Adınız</label>
-      <input  type="text" formControlName="firstName"class="form-control">
+      <label for="firstName" required minlength="1" class="form-label">Adınız</label>
+      <input  type="text" formControlName="firstName"class="form-control" >
     </div>
     <div class="mb-3">
-      <label for="lastName" class="form-label">Soyadınız</label>
-      <input  type="text" formControlName="lastName" class="form-control">
+      <label for="lastName" required minlength="1" class="form-label">Soyadınız</label>
+      <input  type="text" formControlName="lastName" class="form-control" >
     </div>
     <div class="mb-3">
-        <label for="email" class="form-label">E-posta adresiniz</label>
-        <input type="email" formControlName="email"  class="form-control">
+        <label for="email" required minlength="10" class="form-label">E-posta adresiniz</label>
+        <input type="email" formControlName="email"  class="form-control" >
     </div>
     <div class="mb-3">
-        <label for="rentDate" class="form-label">Kiralamak istediğiniz tarih : </label>
+        <label for="rentDate" required class="form-label">Kiralamak istediğiniz tarih : </label>
         <input  type="date" formControlName="rentDate" class="form-control" >
     </div>
     <div class="mb-3">
-        <label for="returnDate"  class="form-label">Arabayı getireceğiniz tarih : </label>
+        <label for="returnDate"  required class="form-label">Arabayı getireceğiniz tarih : </label>
         <input type="date" formControlName="returnDate" class="form-control">
     </div>
-    <div class="mb-3">
-        <label for="carId"  class="form-label">Araba Id : </label>
-        <input type="number" formControlName="carId" class="form-control">
+    <div>
+        <label for="carId"  class="form-label"></label>
+        <input type="hidden" formControlName="carId" class="form-control">
     </div>
-    <button type="submit" [routerLink]="['payment']" class="btn btn-danger">Kirala</button>
-  </form>
+    <button type="submit"  class="btn btn-danger">Kontrol Et</button>
+  </form> 

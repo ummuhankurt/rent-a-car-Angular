@@ -12,7 +12,7 @@ export class RentaldetailService {
   apiUrl = "https://localhost:44316/api/addrentals/add";
   constructor(private httpClient : HttpClient) { }
   
-  getRental(data : any) : Observable<ListResponseModel<RentalDetail>>{
+  getRental(data : RentalDetail) : Observable<ListResponseModel<RentalDetail>>{
     //console.log(data);
     return this.httpClient.post<ListResponseModel<RentalDetail>>(this.apiUrl,data);
   }
