@@ -11,7 +11,7 @@ export class PaymentService {
   apiUrl = "https://localhost:44316/api/payments/add";
   constructor(private httpClient : HttpClient) { }
   
-  getPayment(data : any) : Observable<ListResponseModel<Payment>>{
+  getPayment(data : Payment) : Observable<ListResponseModel<Payment>>{
     return this.httpClient.post<ListResponseModel<Payment>>(this.apiUrl,data);
   }
 

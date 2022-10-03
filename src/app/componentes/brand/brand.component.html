@@ -1,6 +1,8 @@
 <ul class="list-group">
     <li [class]="getAllCars()" routerLink="/cars" (click) = "cleanCurrentBrand()">Tüm Arabalar</li>
     <li [class]="getCurrentBrandClass(brand)" *ngFor = "let brand of brands"
-     (click)="setCurrentBrand(brand)" routerLink="/cars/brands/{{brand.id}}">{{brand.brandName}}</li>
+     (click)="setCurrentBrand(brand)" routerLink="/cars/brands/{{brand.id}}">{{brand.brandName}}
+     <button  type="button" [routerLink]="['update-brand/',brand.id]" class="btn btn-warning">Güncelle</button>
+    </li>
 </ul>
 <p *ngIf = "currentBrand">Tıklanan marka : {{currentBrand.brandName}}</p>

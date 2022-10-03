@@ -2,7 +2,7 @@
   <li [class]="getAllCars()" routerLink="/cars" (click) = "cleanCurrentColor()">Tüm Renkler</li>
   <li [class]="getCurrentColorClass(color)" routerLink = "/cars/colors/{{color.id}}" *ngFor="let color of colors" 
   (click)="setCurrentColor(color)">
-    {{color.colorName}}</li>
+    {{color.colorName}} <button routerLink="update-color/color.id" type="button" class="btn btn-light">Güncelle</button></li>
 </ul>
 
 

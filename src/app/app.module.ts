@@ -21,6 +21,12 @@ import { FilterPipePipe } from './pipes/FilterPipe';
 import { SelectedColorPipePipe } from './pipes/selected-color-pipe.pipe';
 import { SelectedBrandPipePipe } from './pipes/selected-brand-pipe.pipe';
 import { PaymentComponent } from './componentes/Payment/payment.component';
+import { ColorAddComponent } from './componentes/color-add/color-add.component';
+import { BrandAddComponent } from './componentes/brand-add/brand-add.component';
+import { CarAddComponent } from './componentes/car-add/car-add.component';
+import { UpdateCarComponent } from './componentes/update-car/update-car.component';
+import { UpdateColorComponent } from './componentes/update-color/update-color.component';
+import { UpdateBrandComponent } from './componentes/update-brand/update-brand.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +46,12 @@ import { PaymentComponent } from './componentes/Payment/payment.component';
     SelectedColorPipePipe,
     SelectedBrandPipePipe,
     PaymentComponent,
+    ColorAddComponent,
+    BrandAddComponent,
+    CarAddComponent,
+    UpdateCarComponent,
+    UpdateColorComponent,
+    UpdateBrandComponent,
   ],
   imports: [
     BrowserModule,

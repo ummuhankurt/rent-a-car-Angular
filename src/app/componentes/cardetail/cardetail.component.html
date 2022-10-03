@@ -56,18 +56,20 @@
      <th>Fiyat</th>
      <th></th>
      <th></th>
+     <th></th>
    </thead>
    <tbody>
      <tr
        *ngFor="let car of details | filterPipe:filterBrandText | modelFilterPipe:filterModelText | 
         colorFilterPipe: filterColorText"
         >
-       <td>{{car.brand}}</td>
-       <td>{{car.name | uppercase}}</td>
+       <td>{{car.brand}}</td> <!--Marka : Fiat-->
+       <td>{{car.name | uppercase}}</td> <!--Name : Fiorino-->
        <td>{{car.color}}</td>
        <td>{{car.dailyPrice | vatAdded:10 | currency}} </td>
        <td><button type="button" [class]="getButtonClass(car)" (click)="setCurrentCar(car)"
            [routerLink]="['car-detail-page/',car.id]">İncele</button></td>
        <td><button (click)="addToCart(car)" type="button" class="btn btn-success">Sepete Ekle</button></td>
+       <td><button [routerLink]="['update-car/',car.id]" type="button" class="btn btn-warning">Güncelle</button></td>
      </tr>
    </tbody>
