@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NaviComponent } from './componentes/navi/navi.component';
@@ -27,6 +27,9 @@ import { CarAddComponent } from './componentes/car-add/car-add.component';
 import { UpdateCarComponent } from './componentes/update-car/update-car.component';
 import { UpdateColorComponent } from './componentes/update-color/update-color.component';
 import { UpdateBrandComponent } from './componentes/update-brand/update-brand.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { RegisterComponent } from './componentes/register/register.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +55,8 @@ import { UpdateBrandComponent } from './componentes/update-brand/update-brand.co
     UpdateCarComponent,
     UpdateColorComponent,
     UpdateBrandComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +69,9 @@ import { UpdateBrandComponent } from './componentes/update-brand/update-brand.co
       positionClass:"toast-bottom-right"
     })
   ],
-  providers: [],
+  providers: [
+    {provide : HTTP_INTERCEPTORS, useClass : AuthInterceptor,multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

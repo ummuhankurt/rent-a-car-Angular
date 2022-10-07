@@ -6,11 +6,14 @@ import { CarDetailPageComponent } from './componentes/car-detail-page/car-detail
 import { CardetailComponent } from './componentes/cardetail/cardetail.component';
 import { ColorAddComponent } from './componentes/color-add/color-add.component';
 import { ColorComponent } from './componentes/color/color.component';
+import { LoginComponent } from './componentes/login/login.component';
 import { PaymentComponent } from './componentes/Payment/payment.component';
+import { RegisterComponent } from './componentes/register/register.component';
 import { RentaldetailComponent } from './componentes/rentaldetail/rentaldetail.component';
 import { UpdateBrandComponent } from './componentes/update-brand/update-brand.component';
 import { UpdateCarComponent } from './componentes/update-car/update-car.component';
 import { UpdateColorComponent } from './componentes/update-color/update-color.component';
+import { LoginGuard } from './guards/login.guard';
 
 
 const routes: Routes = [
@@ -24,14 +27,16 @@ const routes: Routes = [
   {path: "car-detail-page/:carId",component : CarDetailPageComponent},
   {path : "rentaldetail/:carId" , component: RentaldetailComponent},
   {path : "rentaldetail/:carId/payment" , component: PaymentComponent },
-  {path : "cars/AddColor", component : ColorAddComponent},
-  {path : "cars/AddBrand", component : BrandAddComponent},
-  {path : "cars/AddCar", component : CarAddComponent},
+  {path : "cars/AddColor", component : ColorAddComponent,canActivate : [LoginGuard]},
+  {path : "cars/AddBrand", component : BrandAddComponent,canActivate : [LoginGuard]},
+  {path : "cars/AddCar", component : CarAddComponent,canActivate : [LoginGuard]},
   {path: "update-car/:carId",component : UpdateCarComponent},
   {path: "cars/update-car/:carId",component : UpdateCarComponent},
   {path: "cars/colors/:carId/update-car/:carId",component : UpdateCarComponent},
   {path: 'update-color/:colorId', component: UpdateColorComponent },
-  {path: 'update-brand/:brandId', component: UpdateBrandComponent }
+  {path: 'update-brand/:brandId', component: UpdateBrandComponent },
+  {path: 'login', component: LoginComponent },
+  {path : "register",component : RegisterComponent}
   
 ];
 

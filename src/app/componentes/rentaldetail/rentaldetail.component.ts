@@ -33,11 +33,12 @@ export class RentaldetailComponent implements OnInit {
       email : ["",Validators.required],
       rentDate : ["",Validators.required],
       returnDate : ["", Validators.required],
+      findeksScore : ["",Validators.required],
       carId : []
     })
   }
   addRent(){
-    //console.log(rentModel); 
+    //console.log(rentModel); findeks true dönerse ödemeye yölendirsin.
     if(this.rentForm.valid){
       let rentModel = Object.assign({},this.rentForm.value)
       console.log(rentModel)
@@ -47,6 +48,7 @@ export class RentaldetailComponent implements OnInit {
       },
         error: (err) => {this.toastrService.error("Araba Henüz Teslim Edilmedi")}
       });
+
     }
     else{
       this.toastrService.error("Formunuz eksik")
